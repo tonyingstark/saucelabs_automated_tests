@@ -28,14 +28,14 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
 
+    - name: Install Allure commandline
+      run: npm install -g allure-commandline --save-dev
+
     - name: Generate Allure Report
-      run: |
-        npm install -g allure-commandline --save-dev
-        allure generate --clean ./allure-results
-        allure open ./allure-report
+      run: allure generate --clean ./allure-results
       if: always()
 
-    - name: Upload Allure Results (Optional)
+    - name: Upload Allure Report
       uses: actions/upload-artifact@v4
       with:
         name: allure-report
