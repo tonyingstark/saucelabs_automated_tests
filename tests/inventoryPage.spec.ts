@@ -153,29 +153,29 @@ test.describe('Inventory Page - Negative Test Cases', async() => {
     })
 
     test('Verify all product images are visible and not broken', async ({ page }) => {
-    const loginHelper = new LoginPageHelper(page);
+        const loginHelper = new LoginPageHelper(page);
 
-    await page.goto('/');
-    await loginHelper.fillUsernameField('standard_user');
-    await loginHelper.fillPasswordField('secret_sauce');
-    await loginHelper.clickLoginButton();
+        await page.goto('/');
+        await loginHelper.fillUsernameField('standard_user');
+        await loginHelper.fillPasswordField('secret_sauce');
+        await loginHelper.clickLoginButton();
 
-    await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
+        await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
 
 
-    //Inspect each product item manually or via automation
-    const imageLocators = page.locator('.inventory_item_img img'); // Selects all product <img> tags
-    const imageCount = await imageLocators.count();
+        //Inspect each product item manually or via automation
+        const imageLocators = page.locator('.inventory_item_img img'); // Selects all product <img> tags
+        const imageCount = await imageLocators.count();
 
-    for (let i = 0; i < imageCount; i++) {
-        const img = imageLocators.nth(i);
-        
-        await expect(img, `Image ${i + 1} should be visible`).toBeVisible();
+        for (let i = 0; i < imageCount; i++) {
+            const img = imageLocators.nth(i);
+            
+            await expect(img, `Image ${i + 1} should be visible`).toBeVisible();
 
-        const isLoaded = await img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0);
-        
-        expect(isLoaded, `Image ${i + 1} should be loaded correctly`).toBe(true);
-    }
+            const isLoaded = await img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0);
+            
+            expect(isLoaded, `Image ${i + 1} should be loaded correctly`).toBe(true);
+        }
 })
 
 

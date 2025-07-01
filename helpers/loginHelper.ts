@@ -43,4 +43,9 @@ export class LoginPageHelper {
         const inventoryAccessForLoggedInAlert = this.page.locator('div').filter({ hasText: /^Epic sadface: You can only access '\/inventory\.html' when you are logged in\.$/ })
         await expect(inventoryAccessForLoggedInAlert).toHaveText("Epic sadface: You can only access '/inventory.html' when you are logged in.")
     }
+
+    async validateCartAccessForLoggedInALert() {
+        const cartAccessForLoggedInAlert = this.page.locator('div').filter({ hasText: /^Epic sadface: You can only access '\/cart\.html' when you are logged in\.$/ })
+        await expect(cartAccessForLoggedInAlert).toHaveText("Epic sadface: You can only access '/cart.html' when you are logged in.")
+    }
 }
