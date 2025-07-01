@@ -25,22 +25,17 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    - name: Run Playwright Tests with Allure
-      run: npx playwright test
+    - name: Run Playwright Tests
+      run: npx playwright test --reporter=html
+      # This generates the HTML report at: playwright-report/
 
-    - name: Generate Allure Report
-      run: |
-        npm install -g allure-commandline --save-dev
-        allure generate --clean ./allure-results
+    - name: Zip Playwright HTML Report
+      run: zip -r playwright-report.zip playwright-report
       if: always()
 
-    - name: Zip Allure HTML Report
-      run: zip -r allure-report.zip allure-report
-      if: always()
-
-    - name: Upload Allure HTML Report
+    - name: Upload Playwright HTML Report
       uses: actions/upload-artifact@v4
       with:
-        name: allure-html-report
-        path: allure-report.zip
+        name: playwright-html-report
+        path: playwright-report.zip
       if: always()
